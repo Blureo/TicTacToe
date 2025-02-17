@@ -19,16 +19,25 @@ void printGrid(std::string row1[3], std::string row2[3], std::string row3[3]) //
 long firstPlayInput()
 {
     std::string firstPlay;
+    long inputState = 2;
     
     std::cout << "Type X or O if you want that symbol to play first (X/O): "; // ask user which symbol they wish to have the first turn
     std::cin >> firstPlay;
     
-    if ((firstPlay != "X") && (firstPlay != "O") && (firstPlay != "o") && (firstPlay != "x")) // if user does not input an X or O we call this function again
+    while (inputState == 2)
     {
-        std::cout << "InputError. Please try again." << std::endl;
-        return firstPlayInput(); // call again if there is an error
+        if ((firstPlay != "X") && (firstPlay != "O") && (firstPlay != "o") && (firstPlay != "x")) // if user does not input an X or O we call this function again
+        {
+            std::cout << "InputError. Please try again." << std::endl;
+            return firstPlayInput(); // call again if there is an error
+        }
+        else if ((firstPlay == "X") || (firstPlay == "x"))
+            inputState = 1; // X plays first
+        else
+            inputState = 0; // O plays first
     }
-    else if ((firstPlay == "X") || (firstPlay == "x"))
+    
+    if (inputState == 1)
         return 1; // X plays first
     else
         return 0; // O plays first
